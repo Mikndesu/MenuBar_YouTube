@@ -13,6 +13,8 @@ class MenuView: NSViewController {
 
     @IBOutlet weak var htmlView: WKWebView!
     
+    @IBOutlet var searchField: NSTextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
@@ -25,6 +27,13 @@ class MenuView: NSViewController {
             //エラー処理
         }
         htmlView.loadHTMLString(htmlStr, baseURL: URL(fileURLWithPath:path!))
+    }
+    
+    @IBAction func onSearch(_ sender: Any) {
+    }
+    
+    @IBAction func onQuit(_ sender: Any) {
+        NSApplication.shared.terminate(self)
     }
     
 }

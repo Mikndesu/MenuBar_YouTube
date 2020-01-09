@@ -9,8 +9,11 @@
 /* Begin PBXBuildFile section */
 		7B0690EA23C5CE2100E02C17 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B0690E923C5CE2100E02C17 /* Main.storyboard */; };
 		7B0690EF23C61B4100E02C17 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0690ED23C61B4100E02C17 /* MenuView.swift */; };
-		7B0690F023C61B4100E02C17 /* MenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B0690EE23C61B4100E02C17 /* MenuView.xib */; };
 		7B0690F323C61D0400E02C17 /* GetHTML.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7B0690F223C61D0400E02C17 /* GetHTML.mm */; };
+		7B0690FE23C7C1AA00E02C17 /* APIKey.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7B0690FD23C7C1AA00E02C17 /* APIKey.txt */; };
+		7B06910023C7C1EB00E02C17 /* MenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B0690FF23C7C1EB00E02C17 /* MenuView.xib */; };
+		7B06910223C7C23900E02C17 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 7B06910123C7C23900E02C17 /* .gitignore */; };
+		7B06910423C7C26A00E02C17 /* ReadMe.md in Resources */ = {isa = PBXBuildFile; fileRef = 7B06910323C7C26A00E02C17 /* ReadMe.md */; };
 		7B61B50B23C08A26005A2E04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B61B50A23C08A26005A2E04 /* AppDelegate.swift */; };
 		7B61B50D23C08A26005A2E04 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B61B50C23C08A26005A2E04 /* ViewController.swift */; };
 		7B61B50F23C08A28005A2E04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B61B50E23C08A28005A2E04 /* Assets.xcassets */; };
@@ -40,10 +43,13 @@
 /* Begin PBXFileReference section */
 		7B0690E923C5CE2100E02C17 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		7B0690ED23C61B4100E02C17 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
-		7B0690EE23C61B4100E02C17 /* MenuView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuView.xib; sourceTree = "<group>"; };
 		7B0690F123C61D0300E02C17 /* MenuBar_YouTube-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MenuBar_YouTube-Bridging-Header.h"; sourceTree = "<group>"; };
 		7B0690F223C61D0400E02C17 /* GetHTML.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = GetHTML.mm; sourceTree = "<group>"; };
 		7B0690F423C61D2200E02C17 /* GetHTML.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetHTML.h; sourceTree = "<group>"; };
+		7B0690FD23C7C1AA00E02C17 /* APIKey.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = APIKey.txt; sourceTree = "<group>"; };
+		7B0690FF23C7C1EB00E02C17 /* MenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MenuView.xib; path = ../../../Desktop/MenuBar_YouTube/MenuBar_YouTube/MenuView.xib; sourceTree = "<group>"; };
+		7B06910123C7C23900E02C17 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		7B06910323C7C26A00E02C17 /* ReadMe.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = ReadMe.md; sourceTree = "<group>"; };
 		7B61B50723C08A26005A2E04 /* MenuBar_YouTube.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MenuBar_YouTube.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B61B50A23C08A26005A2E04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7B61B50C23C08A26005A2E04 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -89,6 +95,8 @@
 		7B61B4FE23C08A26005A2E04 = {
 			isa = PBXGroup;
 			children = (
+				7B06910123C7C23900E02C17 /* .gitignore */,
+				7B06910323C7C26A00E02C17 /* ReadMe.md */,
 				7B61B50923C08A26005A2E04 /* MenuBar_YouTube */,
 				7B61B51C23C08A28005A2E04 /* MenuBar_YouTubeTests */,
 				7B61B52723C08A28005A2E04 /* MenuBar_YouTubeUITests */,
@@ -118,10 +126,11 @@
 				7B61B51423C08A28005A2E04 /* MenuBar_YouTube.entitlements */,
 				7B7F13BA23C5B12100CF1102 /* display.html */,
 				7B0690ED23C61B4100E02C17 /* MenuView.swift */,
-				7B0690EE23C61B4100E02C17 /* MenuView.xib */,
+				7B0690FF23C7C1EB00E02C17 /* MenuView.xib */,
 				7B0690F223C61D0400E02C17 /* GetHTML.mm */,
 				7B0690F423C61D2200E02C17 /* GetHTML.h */,
 				7B0690F123C61D0300E02C17 /* MenuBar_YouTube-Bridging-Header.h */,
+				7B0690FD23C7C1AA00E02C17 /* APIKey.txt */,
 			);
 			path = MenuBar_YouTube;
 			sourceTree = "<group>";
@@ -258,8 +267,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B7F13BB23C5B12100CF1102 /* display.html in Resources */,
-				7B0690F023C61B4100E02C17 /* MenuView.xib in Resources */,
 				7B61B50F23C08A28005A2E04 /* Assets.xcassets in Resources */,
+				7B06910023C7C1EB00E02C17 /* MenuView.xib in Resources */,
+				7B0690FE23C7C1AA00E02C17 /* APIKey.txt in Resources */,
+				7B06910223C7C23900E02C17 /* .gitignore in Resources */,
+				7B06910423C7C26A00E02C17 /* ReadMe.md in Resources */,
 				7B0690EA23C5CE2100E02C17 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

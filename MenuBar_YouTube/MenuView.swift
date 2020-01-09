@@ -17,6 +17,7 @@ class MenuView: NSViewController {
         super.viewDidLoad()
         // Do view setup here.
         let path = Bundle.main.path(forResource: "display", ofType: "html")
+        GetHTML.init().writeHTMLdownDisplay(path)
         var htmlStr:String = ""
         do {
             htmlStr = try String(contentsOfFile: path! ,encoding:.utf8)

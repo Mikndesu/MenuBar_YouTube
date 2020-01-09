@@ -10,6 +10,7 @@
 		7B0690EA23C5CE2100E02C17 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B0690E923C5CE2100E02C17 /* Main.storyboard */; };
 		7B0690EF23C61B4100E02C17 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0690ED23C61B4100E02C17 /* MenuView.swift */; };
 		7B0690F023C61B4100E02C17 /* MenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B0690EE23C61B4100E02C17 /* MenuView.xib */; };
+		7B0690F323C61D0400E02C17 /* GetHTML.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7B0690F223C61D0400E02C17 /* GetHTML.mm */; };
 		7B61B50B23C08A26005A2E04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B61B50A23C08A26005A2E04 /* AppDelegate.swift */; };
 		7B61B50D23C08A26005A2E04 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B61B50C23C08A26005A2E04 /* ViewController.swift */; };
 		7B61B50F23C08A28005A2E04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B61B50E23C08A28005A2E04 /* Assets.xcassets */; };
@@ -40,6 +41,9 @@
 		7B0690E923C5CE2100E02C17 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		7B0690ED23C61B4100E02C17 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		7B0690EE23C61B4100E02C17 /* MenuView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuView.xib; sourceTree = "<group>"; };
+		7B0690F123C61D0300E02C17 /* MenuBar_YouTube-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MenuBar_YouTube-Bridging-Header.h"; sourceTree = "<group>"; };
+		7B0690F223C61D0400E02C17 /* GetHTML.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = GetHTML.mm; sourceTree = "<group>"; };
+		7B0690F423C61D2200E02C17 /* GetHTML.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetHTML.h; sourceTree = "<group>"; };
 		7B61B50723C08A26005A2E04 /* MenuBar_YouTube.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MenuBar_YouTube.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B61B50A23C08A26005A2E04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7B61B50C23C08A26005A2E04 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -115,6 +119,9 @@
 				7B7F13BA23C5B12100CF1102 /* display.html */,
 				7B0690ED23C61B4100E02C17 /* MenuView.swift */,
 				7B0690EE23C61B4100E02C17 /* MenuView.xib */,
+				7B0690F223C61D0400E02C17 /* GetHTML.mm */,
+				7B0690F423C61D2200E02C17 /* GetHTML.h */,
+				7B0690F123C61D0300E02C17 /* MenuBar_YouTube-Bridging-Header.h */,
 			);
 			path = MenuBar_YouTube;
 			sourceTree = "<group>";
@@ -213,6 +220,7 @@
 				TargetAttributes = {
 					7B61B50623C08A26005A2E04 = {
 						CreatedOnToolsVersion = 11.1;
+						LastSwiftMigration = 1130;
 					};
 					7B61B51823C08A28005A2E04 = {
 						CreatedOnToolsVersion = 11.1;
@@ -278,6 +286,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B61B50D23C08A26005A2E04 /* ViewController.swift in Sources */,
+				7B0690F323C61D0400E02C17 /* GetHTML.mm in Sources */,
 				7B61B50B23C08A26005A2E04 /* AppDelegate.swift in Sources */,
 				7B0690EF23C61B4100E02C17 /* MenuView.swift in Sources */,
 			);
@@ -372,6 +381,7 @@
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				USER_HEADER_SEARCH_PATHS = /usr/local/Cellar/curl/7.67.0/include;
 			};
 			name = Debug;
 		};
@@ -425,6 +435,7 @@
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				USER_HEADER_SEARCH_PATHS = /usr/local/Cellar/curl/7.67.0/include;
 			};
 			name = Release;
 		};
@@ -432,6 +443,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = MenuBar_YouTube/MenuBar_YouTube.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -445,6 +457,8 @@
 				OTHER_LDFLAGS = "-lcurl";
 				PRODUCT_BUNDLE_IDENTIFIER = "Mitsuki-Goto.MenuBar-YouTube";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MenuBar_YouTube/MenuBar_YouTube-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -453,6 +467,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = MenuBar_YouTube/MenuBar_YouTube.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -466,6 +481,7 @@
 				OTHER_LDFLAGS = "-lcurl";
 				PRODUCT_BUNDLE_IDENTIFIER = "Mitsuki-Goto.MenuBar-YouTube";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MenuBar_YouTube/MenuBar_YouTube-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

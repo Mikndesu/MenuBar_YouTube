@@ -12,8 +12,7 @@
 
 @interface GetHTML : NSObject
 
--(void) writeHTMLdownDisplay: (NSString* ) filepath;
-
+-(void) searchYouTube: (NSString *) searchWord;
 @end
 
 #endif /* GetHTML_h */

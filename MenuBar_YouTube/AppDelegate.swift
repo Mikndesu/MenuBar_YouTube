@@ -23,6 +23,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusItem.action = #selector(AppDelegate.togglePopover(_:))
         
         popover.contentViewController = MenuView(nibName: "MenuView", bundle: nil)
+        
+        let path = Bundle.main.path(forResource: "asset/settings", ofType: "json")
+        var setting:String = ""
+        do {
+            setting = try String(contentsOfFile: path! ,encoding:.utf8)
+            if(setting.isEmpty) {
+                GetHTML.init().makeSettingFile()
+            }
+        } catch {
+        }
     }
     
     @objc func togglePopover(_ sender: Any) {

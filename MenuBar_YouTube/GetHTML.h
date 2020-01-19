@@ -13,6 +13,9 @@
 @interface GetHTML : NSObject
 
 -(void) searchYouTube: (NSString *) searchWord;
+-(void) readFromHistory;
+-(void) makeSettingFile;
+
 @end
 
 #endif /* GetHTML_h */

@@ -15,10 +15,12 @@ class MenuView: NSViewController {
     
     @IBOutlet var searchField: NSTextField!
     
+    var window: NSWindow!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
-        let path = Bundle.main.path(forResource: "display", ofType: "html")
+        let path = Bundle.main.path(forResource: "asset/main", ofType: "html")
         var htmlStr:String = ""
         do {
             htmlStr = try String(contentsOfFile: path! ,encoding:.utf8)
@@ -28,18 +30,16 @@ class MenuView: NSViewController {
         htmlView.loadHTMLString(htmlStr, baseURL: URL(fileURLWithPath:path!))
     }
     
+    @IBAction func loadFromJson(_ sender: Any) {
+        window = NSWindow(contentViewController: SettingController(nibName: "SettingController", bundle: nil))
+    }
+    
     @IBAction func onSearch(_ sender: Any) {
         let searchWord = searchField.stringValue
         if(searchWord == "") {
         } else {
-            let html_path = Bundle.main.path(forResource: "display", ofType: "html")
-            let txt_path = Bundle.main.path(forResource: "APIKey", ofType: "txt")
-            do {
-                let apiStr = try String(contentsOfFile: txt_path! ,encoding:.utf8)
-                GetHTML.init().searchYouTube(searchWord)
-            } catch {
-                //エラー処理
-            }
+            let html_path = Bundle.main.path(forResource: "asset/display", ofType: "html")
+            GetHTML.init().searchYouTube(searchWord)
             var htmlStr:String = ""
             do {
                 htmlStr = try String(contentsOfFile: html_path! ,encoding:.utf8)

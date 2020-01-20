@@ -39,6 +39,11 @@ void writeHTMLdownDisplay(std::string filepath, std::vector<std::string>& vector
     write("<body>");
     std::string s = setting[0];
     int setting_count = std::stoi(s);
+    if(std::stoi(s) > 4) {
+        setting_count = 4;
+    } else {
+        setting_count = std::stoi(s);
+    }
     for(auto iterator = vector.begin(); iterator != vector.end(); iterator++) {
         std::cout << setting_count << std::endl;
         if(count <= setting_count) {

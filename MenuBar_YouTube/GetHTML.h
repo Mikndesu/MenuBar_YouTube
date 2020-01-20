@@ -14,7 +14,7 @@
 
 -(void) searchYouTube: (NSString *) searchWord;
 -(void) readFromHistory;
--(void) makeSettingFile;
+-(void) make_edit_SettingFile;
 
 @end
 

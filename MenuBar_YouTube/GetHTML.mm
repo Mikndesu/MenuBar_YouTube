@@ -10,6 +10,7 @@
 #import "GetHTML.h"
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 #include <vector>
 #include "curl/curl.h"
 #include "picojson.h"
@@ -19,8 +20,8 @@
 
 #define write HTMLSource.push_back
 
-void writeHTMLdownDisplay(std::string filepath, std::vector<std::string> vector) {
-    int count = 0;
+void writeHTMLdownDisplay(std::string filepath, std::vector<std::string>& vector) {
+    int count = 1;
     std::vector<std::string> HTMLSource;
     std::vector<std::string> setting;
     NSBundle *bundle = [NSBundle mainBundle];
@@ -39,15 +40,20 @@ void writeHTMLdownDisplay(std::string filepath, std::vector<std::string> vector)
     std::string s = setting[0];
     int setting_count = std::stoi(s);
     for(auto iterator = vector.begin(); iterator != vector.end(); iterator++) {
-        if(count == setting_count) {
-        write("<iframe width="+setting[2]+" height="+setting[1]+" src=\"https://www.youtube.com/embed/"+*iterator+"\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>");
-        count++;
+        std::cout << setting_count << std::endl;
+        if(count <= setting_count) {
+            write("<iframe width="+setting[2]+" height="+setting[1]+" src=\"https://www.youtube.com/embed/"+*iterator+"\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>");
+            std::cout << count << std::endl;
+            count++;
+        } else {
+            break;
         }
     }
     write("</body>");
     write("</html>");
     std::ofstream ofs(filepath, std::ios::out);
     for(auto it = HTMLSource.begin(); it != HTMLSource.end(); it++) {
+        std::cout << *it << std::endl;
         ofs << *it << std::endl;
     }
     ofs.close();
@@ -71,7 +77,7 @@ void writeHTMLdownDisplay(std::string filepath, std::vector<std::string> vector)
         pos = search.find(from, pos + to.size());
     }
     std::string requestURL_first ="https://www.googleapis.com/youtube/v3/search?part=snippet&q="+search+"&key="+apiKey;
-    std::vector<std::string> v = videoIDs(doCurl(requestURL_first));
+    std::vector<std::string> v = find_videoIDs(doCurl(requestURL_first));
     writeHTMLdownDisplay([htmlPath UTF8String], v);
 }
 
@@ -87,36 +93,28 @@ void writeHTMLdownDisplay(std::string filepath, std::vector<std::string> vector)
     }
 }
 
--(void) makeSettingFile {
+-(void) make_edit_SettingFile {
     NSBundle *bundle = [NSBundle mainBundle];
     NSString *settingsFile = [bundle pathForResource:@"asset/settings" ofType:@"json"];
-    std::ofstream ofs;
-    ofs.open([settingsFile UTF8String], std::ios::trunc);
+    std::ofstream ofs([settingsFile UTF8String], std::ios::out);
     picojson::object obj;
-    obj.emplace(std::make_pair("max_display_video", picojson::value("4")));
+    obj.emplace(std::make_pair("max_display_video", picojson::value("2")));
     obj.emplace(std::make_pair("video_width", picojson::value("460")));
     obj.emplace(std::make_pair("video_height", picojson::value("180")));
     ofs << picojson::value(obj) << std::endl;
 }
 
-std::vector<std::string> videoIDs(std::string jsonObject) {
+std::vector<std::string> find_videoIDs(std::string jsonObject) {
     picojson::value v;
     std::string err, check;
     std::vector<std::string> returnValue;
     picojson::parse(v, jsonObject.c_str(), jsonObject.c_str()+strlen(jsonObject.c_str()), &err);
-    picojson::object object = v.get<picojson::object>();
-    picojson::array array = object["items"].get<picojson::array>();
+    auto array = v.get<picojson::object>()["items"].get<picojson::array>();
     for(auto it = array.begin(); it != array.end(); it++) {
-        picojson::object& obj = it->get<picojson::object>();
-        for(auto ite = obj.begin(); ite != obj.end(); ite++) {
-            if(ite->first == "id") {
-                picojson::object obje = ite->second.get<picojson::object>();
-                for(auto i = obje.begin(); i != obje.end(); i++) {
-                    if(i->first == "videoId") {
-                        std::cout << i->second.to_str() << std::endl;
-                        returnValue.push_back(i->second.to_str());
-                    }
-                }
+        if(auto ite = it->get<picojson::object>().find("id"); ite != it->get<picojson::object>().end()) {
+            if(auto iter = ite->second.get<picojson::object>().find("videoId"); iter != ite->second.get<picojson::object>().end()) {
+                std::cout << iter->second.to_str() << std::endl;
+                returnValue.push_back(iter->second.to_str());
             }
         }
     }
@@ -126,11 +124,10 @@ std::vector<std::string> videoIDs(std::string jsonObject) {
 std::string doCurl(std::string word) {
     CURL* curl;
     CURLcode ret;
-
+    
     curl = curl_easy_init();
     std::string chunk;
-    std::string userAgent = "Mozilla/5.0 (X11; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0";
-
+    
     if(curl ==  nullptr) {
         std::cerr << "curl_easy_init() failed" << std::endl;
     }
@@ -141,7 +138,7 @@ std::string doCurl(std::string word) {
     ret = curl_easy_perform(curl);
     curl_easy_cleanup(curl);
     std::cout << curl_easy_strerror(ret) << std::endl;
-
+    
     if (ret != CURLE_OK) {
         std::cerr << "curl_easy_perform() failed." << std::endl;
     }

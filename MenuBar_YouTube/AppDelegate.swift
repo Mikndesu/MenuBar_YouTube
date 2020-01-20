@@ -28,9 +28,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         var setting:String = ""
         do {
             setting = try String(contentsOfFile: path! ,encoding:.utf8)
-            if(setting.isEmpty) {
-                GetHTML.init().makeSettingFile()
-            }
+            GetHTML.init().make_edit_SettingFile()
+            print("settingFile is just made")
         } catch {
         }
     }

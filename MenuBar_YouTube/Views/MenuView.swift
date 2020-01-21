@@ -31,7 +31,7 @@ class MenuView: NSViewController {
     }
     
     @IBAction func loadFromJson(_ sender: Any) {
-        window = NSWindow(contentViewController: SettingController(nibName: "SettingController", bundle: nil))
+        window = NSWindow(contentViewController: HistoryController(nibName: "HistoryController", bundle: nil))
     }
     
     @IBAction func onSearch(_ sender: Any) {

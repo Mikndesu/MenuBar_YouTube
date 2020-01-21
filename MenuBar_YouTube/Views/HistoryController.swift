@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class SettingController: NSViewController {
+class HistoryController: NSViewController {
 
     @IBOutlet weak var customView: NSView!
     

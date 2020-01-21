@@ -5,7 +5,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="SettingController" customModule="MenuBar_YouTube" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="HistoryController" customModule="MenuBar_YouTube" customModuleProvider="target">
             <connections>
                 <outlet property="view" destination="uTO-my-zOw" id="Urd-7V-Os0"/>
             </connections>

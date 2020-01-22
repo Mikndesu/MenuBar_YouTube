@@ -11,10 +11,11 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
+#include <string>
 #include <vector>
 #include "curl/curl.h"
 #include "picojson.h"
-#include "string"
+#include "History.hpp"
 
 @implementation GetHTML : NSObject
 
@@ -68,6 +69,7 @@ void writeHTMLdownDisplay(std::string filepath, std::vector<std::string>& vector
     NSBundle *bundle = [NSBundle mainBundle];
     NSString *htmlPath = [bundle pathForResource:@"asset/display" ofType:@"html"];
     NSString *apiPath = [bundle pathForResource:@"asset/APIKey" ofType:@"txt"];
+    NSString *historyPath = [bundle pathForResource:@"asset/history" ofType:@"json"];
     
     std::string apiKey;
     std::ifstream ifs([apiPath UTF8String], std::ios::in);
@@ -110,18 +112,33 @@ void writeHTMLdownDisplay(std::string filepath, std::vector<std::string>& vector
 }
 
 std::vector<std::string> find_videoIDs(std::string jsonObject) {
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSString *historyPath = [bundle pathForResource:@"asset/history" ofType:@"json"];
     picojson::value v;
     std::string err, check;
     std::vector<std::string> returnValue;
     picojson::parse(v, jsonObject.c_str(), jsonObject.c_str()+strlen(jsonObject.c_str()), &err);
     auto array = v.get<picojson::object>()["items"].get<picojson::array>();
     for(auto it = array.begin(); it != array.end(); it++) {
-        if(auto ite = it->get<picojson::object>().find("id"); ite != it->get<picojson::object>().end()) {
+        History history([historyPath UTF8String]);
+        std::vector<std::string> v;
+        auto object = it->get<picojson::object>();
+        if(auto ite = object.find("snippet"); ite != object.end()) {
+            if(auto iter = ite->second.get<picojson::object>().find("title"); iter != ite->second.get<picojson::object>().end()) {
+                std::cout << iter->second.to_str() << std::endl;
+                v.push_back(iter->second.to_str());
+                std::cout << "Finish" << std::endl;
+            }
+        }
+        if(auto ite = object.find("id"); ite != object.end()) {
             if(auto iter = ite->second.get<picojson::object>().find("videoId"); iter != ite->second.get<picojson::object>().end()) {
                 std::cout << iter->second.to_str() << std::endl;
                 returnValue.push_back(iter->second.to_str());
+                v.push_back(iter->second.to_str());
+                std::cout << "Finish" << std::endl;
             }
         }
+        history.addHistory(v[0], v[1]);
     }
     return returnValue;
 }

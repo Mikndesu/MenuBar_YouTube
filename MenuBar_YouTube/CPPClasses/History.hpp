@@ -15,6 +15,7 @@
 
 class History {
 public:
+    History();
     History(std::string);
     void addHistory(std::string, std::string);
     std::vector<std::string> getHistory();

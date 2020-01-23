@@ -15,6 +15,8 @@ class MenuView: NSViewController {
     
     @IBOutlet var searchField: NSTextField!
     
+    let getHTML = GetHTML.init()
+    
     var window: NSWindow!
     
     override func viewDidLoad() {

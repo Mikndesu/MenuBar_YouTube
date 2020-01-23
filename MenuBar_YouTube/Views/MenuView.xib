@@ -66,7 +66,7 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
-                        <action selector="loadFromJson:" target="-2" id="xzy-yn-lnP"/>
+                        <action selector="loadFromHistory:" target="-2" id="xzy-yn-lnP"/>
                     </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sJu-mW-q06">

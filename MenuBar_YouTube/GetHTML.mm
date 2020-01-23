@@ -11,11 +11,13 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
+#include <string>
 #include <vector>
 #include "curl/curl.h"
 #include "picojson.h"
 #include "string"
 #include "Setting.hpp"
+#include "History.hpp""
 
 @implementation GetHTML : NSObject
 
@@ -42,7 +44,7 @@ void writeHTMLdownDisplay(std::string filepath, std::vector<std::string>& vector
     for(auto iterator = vector.begin(); iterator != vector.end(); iterator++) {
         std::cout << setting_count << std::endl;
         if(count <= setting_count) {
-            write("<iframe width="+settings[2]+" height="+settings[1]+" src=\"https://www.youtube.com/embed/"+*iterator+"\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>");
+            write("<iframe width="+settings[2]+"height="+settings[1]+" src=\"https://www.youtube.com/embed/"+*iterator+"\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>");
             std::cout << count << std::endl;
             count++;
         } else {
@@ -63,6 +65,7 @@ void writeHTMLdownDisplay(std::string filepath, std::vector<std::string>& vector
     NSBundle *bundle = [NSBundle mainBundle];
     NSString *htmlPath = [bundle pathForResource:@"asset/display" ofType:@"html"];
     NSString *apiPath = [bundle pathForResource:@"asset/APIKey" ofType:@"txt"];
+    NSString *historyPath = [bundle pathForResource:@"asset/history" ofType:@"json"];
     
     std::string apiKey;
     std::ifstream ifs([apiPath UTF8String], std::ios::in);
@@ -87,18 +90,60 @@ void writeHTMLdownDisplay(std::string filepath, std::vector<std::string>& vector
 -(void) make_edit_SettingFile {
 }
 
+-(NSMutableArray *) getHistory {
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSString *historyPath = [bundle pathForResource:@"asset/history" ofType:@"json"];
+    History history([historyPath UTF8String]);
+    std::vector<std::string> v = history.getHistory();
+    NSMutableArray* mutableArray = [NSMutableArray array];;
+    for(auto it = v.begin(); it != v.end(); it++) {
+        [mutableArray addObject:[NSString stringWithUTF8String:(*it).c_str()]];
+        std::cout << *it << std::endl;
+    }
+    NSLog(@"array : %@\n", mutableArray);
+    return mutableArray;
+}
+
 std::vector<std::string> find_videoIDs(std::string jsonObject) {
+    int count = 1;
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSString *historyPath = [bundle pathForResource:@"asset/history" ofType:@"json"];
     picojson::value v;
     std::string err, check;
     std::vector<std::string> returnValue;
     picojson::parse(v, jsonObject.c_str(), jsonObject.c_str()+strlen(jsonObject.c_str()), &err);
     auto array = v.get<picojson::object>()["items"].get<picojson::array>();
+    std::string s = setting[0];
+    int setting_count = std::stoi(s);
+    if(std::stoi(s) > 4) {
+        setting_count = 4;
+    } else {
+        setting_count = std::stoi(s);
+    }
     for(auto it = array.begin(); it != array.end(); it++) {
-        if(auto ite = it->get<picojson::object>().find("id"); ite != it->get<picojson::object>().end()) {
-            if(auto iter = ite->second.get<picojson::object>().find("videoId"); iter != ite->second.get<picojson::object>().end()) {
-                std::cout << iter->second.to_str() << std::endl;
-                returnValue.push_back(iter->second.to_str());
+        if(count <= setting_count) {
+            History history([historyPath UTF8String]);
+            std::vector<std::string> v;
+            auto object = it->get<picojson::object>();
+            if(auto ite = object.find("snippet"); ite != object.end()) {
+                if(auto iter = ite->second.get<picojson::object>().find("title"); iter != ite->second.get<picojson::object>().end()) {
+                    std::cout << iter->second.to_str() << std::endl;
+                    v.push_back(iter->second.to_str());
+                    std::cout << "Finish" << std::endl;
+                }
             }
+            if(auto ite = object.find("id"); ite != object.end()) {
+                if(auto iter = ite->second.get<picojson::object>().find("videoId"); iter != ite->second.get<picojson::object>().end()) {
+                    std::cout << iter->second.to_str() << std::endl;
+                    returnValue.push_back(iter->second.to_str());
+                    v.push_back(iter->second.to_str());
+                    std::cout << "Finish" << std::endl;
+                }
+            }
+            history.addHistory(v[0], v[1]);
+            count++;
+        } else {
+            break;
         }
     }
     return returnValue;

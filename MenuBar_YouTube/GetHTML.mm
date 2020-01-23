@@ -21,20 +21,34 @@
 
 #define write HTMLSource.push_back
 
+std::vector<std::string> getSettingValue() {
+    std::vector<std::string> setting;
+    std::string s, err;
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSString *settingPath = [bundle pathForResource:@"asset/settings" ofType:@"json"];
+    std::ifstream ifs([settingPath UTF8String], std::ios::in);
+    std::getline(ifs, s);
+    std::cout << s << std::endl;
+    picojson::value v;
+    picojson::parse(v, s.c_str(), s.c_str() + strlen(s.c_str()), &err);
+    if(err.empty()) {
+        auto obj = v.get<picojson::object>();
+        for(auto it = obj.begin(); it != obj.end(); it++) {
+            setting.push_back(it->second.to_str());
+        }
+    } else {
+        std::cout << err << std::endl;
+        std::cout << __LINE__ << std::endl;
+        std::exit(1);
+    }
+    return setting;
+}
+
+std::vector<std::string> setting = getSettingValue();
+
 void writeHTMLdownDisplay(std::string filepath, std::vector<std::string>& vector) {
     int count = 1;
     std::vector<std::string> HTMLSource;
-    std::vector<std::string> setting;
-    NSBundle *bundle = [NSBundle mainBundle];
-    std::ifstream ifs([[bundle pathForResource:@"asset/settings" ofType:@"json"] UTF8String], std::ios::in);
-    std::string jsonobj, err;
-    std::getline(ifs, jsonobj);
-    picojson::value v;
-    picojson::parse(v, jsonobj.c_str(), jsonobj.c_str()+strlen(jsonobj.c_str()), &err);
-    auto json = v.get<picojson::object>();
-    for(auto it = json.begin(); it != json.end(); it++) {
-        setting.push_back(it->second.to_str());
-    }
     write("<!DOCTYPE HTML>");
     write("<html>");
     write("<body>");
@@ -48,7 +62,7 @@ void writeHTMLdownDisplay(std::string filepath, std::vector<std::string>& vector
     for(auto iterator = vector.begin(); iterator != vector.end(); iterator++) {
         std::cout << setting_count << std::endl;
         if(count <= setting_count) {
-            write("<iframe width="+setting[2]+" height="+setting[1]+" src=\"https://www.youtube.com/embed/"+*iterator+"\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>");
+            write("<iframe width="+setting[2]+"height="+setting[1]+" src=\"https://www.youtube.com/embed/"+*iterator+"\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>");
             std::cout << count << std::endl;
             count++;
         } else {
@@ -111,7 +125,22 @@ void writeHTMLdownDisplay(std::string filepath, std::vector<std::string>& vector
     ofs << picojson::value(obj) << std::endl;
 }
 
+-(NSMutableArray *) getHistory {
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSString *historyPath = [bundle pathForResource:@"asset/history" ofType:@"json"];
+    History history([historyPath UTF8String]);
+    std::vector<std::string> v = history.getHistory();
+    NSMutableArray* mutableArray = [NSMutableArray array];;
+    for(auto it = v.begin(); it != v.end(); it++) {
+        [mutableArray addObject:[NSString stringWithUTF8String:(*it).c_str()]];
+        std::cout << *it << std::endl;
+    }
+    NSLog(@"array : %@\n", mutableArray);
+    return mutableArray;
+}
+
 std::vector<std::string> find_videoIDs(std::string jsonObject) {
+    int count = 1;
     NSBundle *bundle = [NSBundle mainBundle];
     NSString *historyPath = [bundle pathForResource:@"asset/history" ofType:@"json"];
     picojson::value v;
@@ -119,26 +148,38 @@ std::vector<std::string> find_videoIDs(std::string jsonObject) {
     std::vector<std::string> returnValue;
     picojson::parse(v, jsonObject.c_str(), jsonObject.c_str()+strlen(jsonObject.c_str()), &err);
     auto array = v.get<picojson::object>()["items"].get<picojson::array>();
+    std::string s = setting[0];
+    int setting_count = std::stoi(s);
+    if(std::stoi(s) > 4) {
+        setting_count = 4;
+    } else {
+        setting_count = std::stoi(s);
+    }
     for(auto it = array.begin(); it != array.end(); it++) {
-        History history([historyPath UTF8String]);
-        std::vector<std::string> v;
-        auto object = it->get<picojson::object>();
-        if(auto ite = object.find("snippet"); ite != object.end()) {
-            if(auto iter = ite->second.get<picojson::object>().find("title"); iter != ite->second.get<picojson::object>().end()) {
-                std::cout << iter->second.to_str() << std::endl;
-                v.push_back(iter->second.to_str());
-                std::cout << "Finish" << std::endl;
+        if(count <= setting_count) {
+            History history([historyPath UTF8String]);
+            std::vector<std::string> v;
+            auto object = it->get<picojson::object>();
+            if(auto ite = object.find("snippet"); ite != object.end()) {
+                if(auto iter = ite->second.get<picojson::object>().find("title"); iter != ite->second.get<picojson::object>().end()) {
+                    std::cout << iter->second.to_str() << std::endl;
+                    v.push_back(iter->second.to_str());
+                    std::cout << "Finish" << std::endl;
+                }
             }
-        }
-        if(auto ite = object.find("id"); ite != object.end()) {
-            if(auto iter = ite->second.get<picojson::object>().find("videoId"); iter != ite->second.get<picojson::object>().end()) {
-                std::cout << iter->second.to_str() << std::endl;
-                returnValue.push_back(iter->second.to_str());
-                v.push_back(iter->second.to_str());
-                std::cout << "Finish" << std::endl;
+            if(auto ite = object.find("id"); ite != object.end()) {
+                if(auto iter = ite->second.get<picojson::object>().find("videoId"); iter != ite->second.get<picojson::object>().end()) {
+                    std::cout << iter->second.to_str() << std::endl;
+                    returnValue.push_back(iter->second.to_str());
+                    v.push_back(iter->second.to_str());
+                    std::cout << "Finish" << std::endl;
+                }
             }
+            history.addHistory(v[0], v[1]);
+            count++;
+        } else {
+            break;
         }
-        history.addHistory(v[0], v[1]);
     }
     return returnValue;
 }

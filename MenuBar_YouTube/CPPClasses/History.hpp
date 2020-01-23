@@ -15,7 +15,6 @@
 
 class History {
 public:
-    History();
     History(std::string);
     void addHistory(std::string, std::string);
     std::vector<std::string> getHistory();
@@ -23,6 +22,7 @@ public:
 private:
     std::string m_filepath;
     void makeHistoryFile();
+    void checkHistory();
 };
 
 #endif /* History_hpp */

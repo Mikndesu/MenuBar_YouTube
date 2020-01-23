@@ -13,18 +13,18 @@
 #include <vector>
 #include "picojson.h"
 
-History::History() {
-}
-
 History::History(std::string filepath) {
     m_filepath = filepath;
     if(std::fstream fs(m_filepath, std::ios::in); fs.fail()) {
+        std::cout << "History File was Created" << std::endl;
         makeHistoryFile();
     } else {
         std::cout << "History File Exists" << std::endl;
         std::string contents;
         if(std::getline(fs, contents); contents.empty()) {
             makeHistoryFile();
+        } else {
+            checkHistory();
         }
     }
 }
@@ -52,7 +52,7 @@ void History::addHistory(std::string videoName, std::string videoId) {
     ifs.close();
     std::cout << contents << std::endl;
     picojson::parse(val, contents.c_str(), contents.c_str() + strlen(contents.c_str()), &err);
-    std::cout << "here" << err << std::endl;
+    std::cout << "here " << err << std::endl;
     if(err.empty()) {
         auto jsonObj = val.get<picojson::object>();
         if(bool isExist = jsonObj.count(videoName); !isExist) {
@@ -63,8 +63,13 @@ void History::addHistory(std::string videoName, std::string videoId) {
         std::cout << picojson::value(jsonObj) << std::endl;
         ofs.close();
     } else {
+        std::cout << "Exit" << std::endl;
         std::exit(1);
     }
+}
+
+void History::checkHistory() {
+    
 }
 
 void History::makeHistoryFile() {

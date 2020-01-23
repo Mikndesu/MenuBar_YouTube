@@ -30,8 +30,8 @@ class MenuView: NSViewController {
         htmlView.loadHTMLString(htmlStr, baseURL: URL(fileURLWithPath:path!))
     }
     
-    @IBAction func loadFromJson(_ sender: Any) {
-        window = NSWindow(contentViewController: HistoryController(nibName: "HistoryController", bundle: nil))
+    @IBAction func loadFromHistory(_ sender: Any) {
+        window = NSWindow(contentViewController: HistorySelector(nibName: "HistorySelector", bundle: nil))
     }
     
     @IBAction func onSearch(_ sender: Any) {

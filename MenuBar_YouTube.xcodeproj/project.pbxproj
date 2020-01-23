@@ -13,6 +13,8 @@
 		7B0690F323C61D0400E02C17 /* GetHTML.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7B0690F223C61D0400E02C17 /* GetHTML.mm */; };
 		7B0690F623C71AA600E02C17 /* ReadMe.md in Resources */ = {isa = PBXBuildFile; fileRef = 7B0690F523C71AA600E02C17 /* ReadMe.md */; };
 		7B0690F823C71AEA00E02C17 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 7B0690F723C71AEA00E02C17 /* .gitignore */; };
+		7B42E2A123D8C77F00B6BC7D /* HistorySelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E29F23D8C77F00B6BC7D /* HistorySelector.swift */; };
+		7B42E2A223D8C77F00B6BC7D /* HistorySelector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B42E2A023D8C77F00B6BC7D /* HistorySelector.xib */; };
 		7B61B50B23C08A26005A2E04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B61B50A23C08A26005A2E04 /* AppDelegate.swift */; };
 		7B61B50D23C08A26005A2E04 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B61B50C23C08A26005A2E04 /* ViewController.swift */; };
 		7B61B50F23C08A28005A2E04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B61B50E23C08A28005A2E04 /* Assets.xcassets */; };
@@ -20,8 +22,6 @@
 		7B61B52923C08A28005A2E04 /* MenuBar_YouTubeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B61B52823C08A28005A2E04 /* MenuBar_YouTubeUITests.swift */; };
 		7B7F13BE23C5BC0400CF1102 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B7F13BD23C5BC0400CF1102 /* WebKit.framework */; };
 		7BBF27C223D1E9BE000EB8BA /* asset in Resources */ = {isa = PBXBuildFile; fileRef = 7BBF27C123D1E9BE000EB8BA /* asset */; };
-		7BBF27CC23D22852000EB8BA /* HistoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBF27CA23D22852000EB8BA /* HistoryController.swift */; };
-		7BBF27CD23D22852000EB8BA /* HistoryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BBF27CB23D22852000EB8BA /* HistoryController.xib */; };
 		7BBF27D823D577F3000EB8BA /* Images in Resources */ = {isa = PBXBuildFile; fileRef = 7BBF27D723D577F3000EB8BA /* Images */; };
 		7BBF27DB23D69336000EB8BA /* History.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7BBF27D923D69336000EB8BA /* History.cpp */; };
 /* End PBXBuildFile section */
@@ -52,6 +52,8 @@
 		7B0690F423C61D2200E02C17 /* GetHTML.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetHTML.h; sourceTree = "<group>"; };
 		7B0690F523C71AA600E02C17 /* ReadMe.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ReadMe.md; sourceTree = "<group>"; };
 		7B0690F723C71AEA00E02C17 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		7B42E29F23D8C77F00B6BC7D /* HistorySelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySelector.swift; sourceTree = "<group>"; };
+		7B42E2A023D8C77F00B6BC7D /* HistorySelector.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistorySelector.xib; sourceTree = "<group>"; };
 		7B61B50723C08A26005A2E04 /* MenuBar_YouTube.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MenuBar_YouTube.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B61B50A23C08A26005A2E04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7B61B50C23C08A26005A2E04 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -66,8 +68,6 @@
 		7B61B52A23C08A28005A2E04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7B7F13BD23C5BC0400CF1102 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		7BBF27C123D1E9BE000EB8BA /* asset */ = {isa = PBXFileReference; lastKnownFileType = folder; path = asset; sourceTree = "<group>"; };
-		7BBF27CA23D22852000EB8BA /* HistoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryController.swift; sourceTree = "<group>"; };
-		7BBF27CB23D22852000EB8BA /* HistoryController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryController.xib; sourceTree = "<group>"; };
 		7BBF27D723D577F3000EB8BA /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = "<group>"; };
 		7BBF27D923D69336000EB8BA /* History.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = History.cpp; sourceTree = "<group>"; };
 		7BBF27DA23D69336000EB8BA /* History.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = History.hpp; sourceTree = "<group>"; };
@@ -113,10 +113,10 @@
 		7B5D522023D72DF5007C9C16 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				7BBF27CB23D22852000EB8BA /* HistoryController.xib */,
-				7BBF27CA23D22852000EB8BA /* HistoryController.swift */,
 				7B0690EE23C61B4100E02C17 /* MenuView.xib */,
 				7B0690ED23C61B4100E02C17 /* MenuView.swift */,
+				7B42E29F23D8C77F00B6BC7D /* HistorySelector.swift */,
+				7B42E2A023D8C77F00B6BC7D /* HistorySelector.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -301,8 +301,8 @@
 				7BBF27C223D1E9BE000EB8BA /* asset in Resources */,
 				7B0690F823C71AEA00E02C17 /* .gitignore in Resources */,
 				7BBF27D823D577F3000EB8BA /* Images in Resources */,
-				7BBF27CD23D22852000EB8BA /* HistoryController.xib in Resources */,
 				7B0690F623C71AA600E02C17 /* ReadMe.md in Resources */,
+				7B42E2A223D8C77F00B6BC7D /* HistorySelector.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,11 +328,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BBF27DB23D69336000EB8BA /* History.cpp in Sources */,
-				7BBF27CC23D22852000EB8BA /* HistoryController.swift in Sources */,
 				7B61B50D23C08A26005A2E04 /* ViewController.swift in Sources */,
 				7B0690F323C61D0400E02C17 /* GetHTML.mm in Sources */,
 				7B61B50B23C08A26005A2E04 /* AppDelegate.swift in Sources */,
 				7B0690EF23C61B4100E02C17 /* MenuView.swift in Sources */,
+				7B42E2A123D8C77F00B6BC7D /* HistorySelector.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

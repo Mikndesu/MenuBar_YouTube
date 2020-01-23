@@ -1,2 +1,6 @@
 MenuBar_YouTube/asset/APIKey.txt
 ManuBar_YouTube/picojson.h
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcworkspace/contents.xcworkspacedata
+

@@ -15,29 +15,24 @@
 #include "curl/curl.h"
 #include "picojson.h"
 #include "string"
+#include "Setting.hpp"
 
 @implementation GetHTML : NSObject
 
 #define write HTMLSource.push_back
 
+NSBundle *bundle = [NSBundle mainBundle];
+NSString *settingpath = [bundle pathForResource:@"asset/settings" ofType:@"json"];
+Setting setting([settingpath UTF8String]);
+
 void writeHTMLdownDisplay(std::string filepath, std::vector<std::string>& vector) {
     int count = 1;
     std::vector<std::string> HTMLSource;
-    std::vector<std::string> setting;
-    NSBundle *bundle = [NSBundle mainBundle];
-    std::ifstream ifs([[bundle pathForResource:@"asset/settings" ofType:@"json"] UTF8String], std::ios::in);
-    std::string jsonobj, err;
-    std::getline(ifs, jsonobj);
-    picojson::value v;
-    picojson::parse(v, jsonobj.c_str(), jsonobj.c_str()+strlen(jsonobj.c_str()), &err);
-    auto json = v.get<picojson::object>();
-    for(auto it = json.begin(); it != json.end(); it++) {
-        setting.push_back(it->second.to_str());
-    }
+    std::vector<std::string> settings = setting.getSetting();
     write("<!DOCTYPE HTML>");
     write("<html>");
     write("<body>");
-    std::string s = setting[0];
+    std::string s = settings[0];
     int setting_count = std::stoi(s);
     if(std::stoi(s) > 4) {
         setting_count = 4;
@@ -47,7 +42,7 @@ void writeHTMLdownDisplay(std::string filepath, std::vector<std::string>& vector
     for(auto iterator = vector.begin(); iterator != vector.end(); iterator++) {
         std::cout << setting_count << std::endl;
         if(count <= setting_count) {
-            write("<iframe width="+setting[2]+" height="+setting[1]+" src=\"https://www.youtube.com/embed/"+*iterator+"\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>");
+            write("<iframe width="+settings[2]+" height="+settings[1]+" src=\"https://www.youtube.com/embed/"+*iterator+"\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>");
             std::cout << count << std::endl;
             count++;
         } else {
@@ -87,26 +82,9 @@ void writeHTMLdownDisplay(std::string filepath, std::vector<std::string>& vector
 }
 
 -(void) readFromHistory {
-    NSBundle *bundle = [NSBundle mainBundle];
-    NSString *settingsFile = [bundle pathForResource:@"asset/history" ofType:@"json"];
-    std::ifstream ifs;
-    ifs.open([settingsFile UTF8String], std::ios::in);
-    std::string contents;
-    std::getline(ifs, contents);
-    if(contents.empty()) {
-    } else {
-    }
 }
 
 -(void) make_edit_SettingFile {
-    NSBundle *bundle = [NSBundle mainBundle];
-    NSString *settingsFile = [bundle pathForResource:@"asset/settings" ofType:@"json"];
-    std::ofstream ofs([settingsFile UTF8String], std::ios::out);
-    picojson::object obj;
-    obj.emplace(std::make_pair("max_display_video", picojson::value("2")));
-    obj.emplace(std::make_pair("video_width", picojson::value("460")));
-    obj.emplace(std::make_pair("video_height", picojson::value("180")));
-    ofs << picojson::value(obj) << std::endl;
 }
 
 std::vector<std::string> find_videoIDs(std::string jsonObject) {

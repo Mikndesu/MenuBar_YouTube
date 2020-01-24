@@ -21,7 +21,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         statusItem.title = "YouTube"
         statusItem.action = #selector(AppDelegate.togglePopover(_:))
-        
+        showMenu()
+    }
+    
+    func showMenu() {
         popover.contentViewController = MenuView(nibName: "MenuView", bundle: nil)
     }
     

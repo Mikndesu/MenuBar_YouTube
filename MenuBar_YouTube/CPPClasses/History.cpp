@@ -39,7 +39,7 @@ std::vector<std::string> History::getHistory() {
     picojson::parse(v, contents.c_str(), contents.c_str()+strlen(contents.c_str()), &err);
     auto jsonObj = v.get<picojson::object>();
     for(auto it = jsonObj.begin(); it != jsonObj.end(); it++) {
-        histories.push_back(it->second.to_str());
+        histories.push_back(it->first);
     }
     return histories;
 }
@@ -66,6 +66,26 @@ void History::addHistory(std::string videoName, std::string videoId) {
         std::cout << "Exit" << std::endl;
         std::exit(1);
     }
+}
+
+std::string History::searchKey(std::string key) {
+    std::string contents, err;
+    picojson::value val;
+    std::ifstream ifs(m_filepath, std::ios::in);
+    std::getline(ifs, contents);
+    ifs.close();
+    std::cout << contents << std::endl;
+    picojson::parse(val, contents.c_str(), contents.c_str() + strlen(contents.c_str()), &err);
+    if(err.empty()) {
+        auto jsonObj = val.get<picojson::object>();
+        if(jsonObj.count(key)) {
+            return jsonObj.at(key).to_str();
+        }
+    } else {
+        std::cout << "Exit" << std::endl;
+        std::exit(1);
+    }
+    return "";
 }
 
 void History::checkHistory() {

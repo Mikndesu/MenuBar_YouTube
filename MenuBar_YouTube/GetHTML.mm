@@ -17,7 +17,7 @@
 #include "picojson.h"
 #include "string"
 #include "Setting.hpp"
-#include "History.hpp""
+#include "History.hpp"
 
 @implementation GetHTML : NSObject
 
@@ -25,7 +25,9 @@
 
 NSBundle *bundle = [NSBundle mainBundle];
 NSString *settingpath = [bundle pathForResource:@"asset/settings" ofType:@"json"];
+NSString *historyPath = [bundle pathForResource:@"asset/history" ofType:@"json"];
 Setting setting([settingpath UTF8String]);
+History history([historyPath UTF8String]);
 
 void writeHTMLdownDisplay(std::string filepath, std::vector<std::string>& vector) {
     int count = 1;
@@ -65,8 +67,6 @@ void writeHTMLdownDisplay(std::string filepath, std::vector<std::string>& vector
     NSBundle *bundle = [NSBundle mainBundle];
     NSString *htmlPath = [bundle pathForResource:@"asset/display" ofType:@"html"];
     NSString *apiPath = [bundle pathForResource:@"asset/APIKey" ofType:@"txt"];
-    NSString *historyPath = [bundle pathForResource:@"asset/history" ofType:@"json"];
-    
     std::string apiKey;
     std::ifstream ifs([apiPath UTF8String], std::ios::in);
     std::getline(ifs, apiKey);
@@ -84,16 +84,18 @@ void writeHTMLdownDisplay(std::string filepath, std::vector<std::string>& vector
     writeHTMLdownDisplay([htmlPath UTF8String], v);
 }
 
--(void) readFromHistory {
-}
-
 -(void) make_edit_SettingFile {
 }
 
--(NSMutableArray *) getHistory {
+-(void) showSelectedHistory:(NSString *) key {
     NSBundle *bundle = [NSBundle mainBundle];
-    NSString *historyPath = [bundle pathForResource:@"asset/history" ofType:@"json"];
-    History history([historyPath UTF8String]);
+    NSString *htmlPath = [bundle pathForResource:@"asset/display" ofType:@"html"];
+    std::vector<std::string> v;
+    v.push_back(history.searchKey([key UTF8String]));
+    writeHTMLdownDisplay([htmlPath UTF8String], v);
+}
+
+-(NSMutableArray *) getHistory {
     std::vector<std::string> v = history.getHistory();
     NSMutableArray* mutableArray = [NSMutableArray array];;
     for(auto it = v.begin(); it != v.end(); it++) {
@@ -106,14 +108,13 @@ void writeHTMLdownDisplay(std::string filepath, std::vector<std::string>& vector
 
 std::vector<std::string> find_videoIDs(std::string jsonObject) {
     int count = 1;
-    NSBundle *bundle = [NSBundle mainBundle];
-    NSString *historyPath = [bundle pathForResource:@"asset/history" ofType:@"json"];
+    std::vector<std::string> settings = setting.getSetting();
     picojson::value v;
     std::string err, check;
     std::vector<std::string> returnValue;
     picojson::parse(v, jsonObject.c_str(), jsonObject.c_str()+strlen(jsonObject.c_str()), &err);
     auto array = v.get<picojson::object>()["items"].get<picojson::array>();
-    std::string s = setting[0];
+    std::string s = settings[0];
     int setting_count = std::stoi(s);
     if(std::stoi(s) > 4) {
         setting_count = 4;
@@ -122,7 +123,6 @@ std::vector<std::string> find_videoIDs(std::string jsonObject) {
     }
     for(auto it = array.begin(); it != array.end(); it++) {
         if(count <= setting_count) {
-            History history([historyPath UTF8String]);
             std::vector<std::string> v;
             auto object = it->get<picojson::object>();
             if(auto ite = object.find("snippet"); ite != object.end()) {
@@ -140,7 +140,9 @@ std::vector<std::string> find_videoIDs(std::string jsonObject) {
                     std::cout << "Finish" << std::endl;
                 }
             }
-            history.addHistory(v[0], v[1]);
+            if(v[1] != "") {
+                history.addHistory(v[0], v[1]);
+            }
             count++;
         } else {
             break;

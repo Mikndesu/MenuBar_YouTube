@@ -13,12 +13,10 @@
 		7B0690F323C61D0400E02C17 /* GetHTML.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7B0690F223C61D0400E02C17 /* GetHTML.mm */; };
 		7B0690F623C71AA600E02C17 /* ReadMe.md in Resources */ = {isa = PBXBuildFile; fileRef = 7B0690F523C71AA600E02C17 /* ReadMe.md */; };
 		7B0690F823C71AEA00E02C17 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 7B0690F723C71AEA00E02C17 /* .gitignore */; };
-<<<<<<< HEAD
-		7B42E2A523D99F9300B6BC7D /* Setting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E2A323D99F9300B6BC7D /* Setting.cpp */; };
-=======
 		7B42E2A123D8C77F00B6BC7D /* HistorySelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E29F23D8C77F00B6BC7D /* HistorySelector.swift */; };
 		7B42E2A223D8C77F00B6BC7D /* HistorySelector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B42E2A023D8C77F00B6BC7D /* HistorySelector.xib */; };
->>>>>>> implementHistory
+		7B42E2A523D99F9300B6BC7D /* Setting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E2A323D99F9300B6BC7D /* Setting.cpp */; };
+		7B612D1523DB1939005FE029 /* SaveStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B612D1423DB1939005FE029 /* SaveStatus.swift */; };
 		7B61B50B23C08A26005A2E04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B61B50A23C08A26005A2E04 /* AppDelegate.swift */; };
 		7B61B50D23C08A26005A2E04 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B61B50C23C08A26005A2E04 /* ViewController.swift */; };
 		7B61B50F23C08A28005A2E04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B61B50E23C08A28005A2E04 /* Assets.xcassets */; };
@@ -56,13 +54,11 @@
 		7B0690F423C61D2200E02C17 /* GetHTML.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetHTML.h; sourceTree = "<group>"; };
 		7B0690F523C71AA600E02C17 /* ReadMe.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ReadMe.md; sourceTree = "<group>"; };
 		7B0690F723C71AEA00E02C17 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-<<<<<<< HEAD
-		7B42E2A323D99F9300B6BC7D /* Setting.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Setting.cpp; sourceTree = "<group>"; };
-		7B42E2A423D99F9300B6BC7D /* Setting.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Setting.hpp; sourceTree = "<group>"; };
-=======
 		7B42E29F23D8C77F00B6BC7D /* HistorySelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySelector.swift; sourceTree = "<group>"; };
 		7B42E2A023D8C77F00B6BC7D /* HistorySelector.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistorySelector.xib; sourceTree = "<group>"; };
->>>>>>> implementHistory
+		7B42E2A323D99F9300B6BC7D /* Setting.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Setting.cpp; sourceTree = "<group>"; };
+		7B42E2A423D99F9300B6BC7D /* Setting.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Setting.hpp; sourceTree = "<group>"; };
+		7B612D1423DB1939005FE029 /* SaveStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveStatus.swift; sourceTree = "<group>"; };
 		7B61B50723C08A26005A2E04 /* MenuBar_YouTube.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MenuBar_YouTube.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B61B50A23C08A26005A2E04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7B61B50C23C08A26005A2E04 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -114,7 +110,9 @@
 			children = (
 				7BD43CED23CA0D21009756D5 /* picojson.h */,
 				7BBF27D923D69336000EB8BA /* History.cpp */,
+				7B42E2A323D99F9300B6BC7D /* Setting.cpp */,
 				7BBF27DA23D69336000EB8BA /* History.hpp */,
+				7B42E2A423D99F9300B6BC7D /* Setting.hpp */,
 			);
 			path = CPPClasses;
 			sourceTree = "<group>";
@@ -122,10 +120,11 @@
 		7B5D522023D72DF5007C9C16 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				7B0690EE23C61B4100E02C17 /* MenuView.xib */,
 				7B0690ED23C61B4100E02C17 /* MenuView.swift */,
 				7B42E29F23D8C77F00B6BC7D /* HistorySelector.swift */,
+				7B0690EE23C61B4100E02C17 /* MenuView.xib */,
 				7B42E2A023D8C77F00B6BC7D /* HistorySelector.xib */,
+				7B612D1423DB1939005FE029 /* SaveStatus.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -169,8 +168,6 @@
 				7B61B50C23C08A26005A2E04 /* ViewController.swift */,
 				7B61B50A23C08A26005A2E04 /* AppDelegate.swift */,
 				7BBF27C123D1E9BE000EB8BA /* asset */,
-				7B42E2A323D99F9300B6BC7D /* Setting.cpp */,
-				7B42E2A423D99F9300B6BC7D /* Setting.hpp */,
 			);
 			path = MenuBar_YouTube;
 			sourceTree = "<group>";
@@ -344,6 +341,7 @@
 				7B61B50B23C08A26005A2E04 /* AppDelegate.swift in Sources */,
 				7B42E2A523D99F9300B6BC7D /* Setting.cpp in Sources */,
 				7B0690EF23C61B4100E02C17 /* MenuView.swift in Sources */,
+				7B612D1523DB1939005FE029 /* SaveStatus.swift in Sources */,
 				7B42E2A123D8C77F00B6BC7D /* HistorySelector.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

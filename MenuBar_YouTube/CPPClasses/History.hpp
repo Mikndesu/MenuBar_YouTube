@@ -16,8 +16,9 @@
 class History {
 public:
     History(std::string);
-    void addHistory(std::string, std::string);
     std::vector<std::string> getHistory();
+    std::string searchKey(std::string);
+    void addHistory(std::string, std::string);
     void editHistory();
 private:
     std::string m_filepath;

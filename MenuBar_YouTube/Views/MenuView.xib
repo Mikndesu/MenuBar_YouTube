@@ -28,11 +28,11 @@
                     </wkWebViewConfiguration>
                 </wkWebView>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZCK-ae-pLe">
-                    <rect key="frame" x="-6" y="-7" width="174" height="32"/>
+                    <rect key="frame" x="-6" y="13" width="139" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="push" title="Search" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="rIF-BP-elH">
+                    <buttonCell key="cell" type="push" title="Search Word" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="rIF-BP-elH">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
+                        <font key="font" metaFont="message"/>
                     </buttonCell>
                     <connections>
                         <action selector="onSearch:" target="-2" id="z3k-Wz-toH"/>
@@ -43,14 +43,14 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="push" title="Quit" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LUJ-OA-UfC">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
+                        <font key="font" metaFont="message"/>
                     </buttonCell>
                     <connections>
                         <action selector="onQuit:" target="-2" id="UBt-Sc-xvc"/>
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kFL-4V-oOS">
-                    <rect key="frame" x="92" y="20" width="381" height="21"/>
+                    <rect key="frame" x="127" y="20" width="346" height="21"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="KcL-cZ-bN1">
                         <font key="font" usesAppearanceFont="YES"/>
@@ -63,23 +63,25 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="push" title="Load From History" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="VSu-g2-5Kw">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
+                        <font key="font" metaFont="message"/>
                     </buttonCell>
                     <connections>
                         <action selector="selectHistory:" target="-2" id="xzy-yn-lnP"/>
                     </connections>
                 </button>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sJu-mW-q06">
-                    <rect key="frame" x="0.0" y="20" width="86" height="18"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" title=" Search Word" id="8Mw-Sz-opy">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a1d-RL-uEP">
+                    <rect key="frame" x="-6" y="-7" width="174" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="push" title="Setings" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qtP-fx-vWc">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="message"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="editSetting:" target="-2" id="TDs-Jc-dlG"/>
+                    </connections>
+                </button>
             </subviews>
-            <point key="canvasLocation" x="139.5" y="67.5"/>
+            <point key="canvasLocation" x="189" y="61"/>
         </customView>
     </objects>
 </document>

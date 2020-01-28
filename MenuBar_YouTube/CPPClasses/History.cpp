@@ -27,63 +27,32 @@ History::History(std::string filepath) {
             checkHistory();
         }
     }
+    loadHistory();
 }
 
 std::vector<std::string> History::getHistory() {
     std::vector<std::string> histories;
-    std::string contents, err;
-    std::ifstream ifs(m_filepath, std::ios::in);
-    std::getline(ifs, contents);
-    ifs.close();
-    picojson::value v;
-    picojson::parse(v, contents.c_str(), contents.c_str()+strlen(contents.c_str()), &err);
-    auto jsonObj = v.get<picojson::object>();
-    for(auto it = jsonObj.begin(); it != jsonObj.end(); it++) {
-        histories.push_back(it->first);
-    }
+    auto jsonObj = m_jsonObj;
+    std::for_each(jsonObj.begin(), jsonObj.end(), [&histories](auto value){histories.push_back(value.first);});
     return histories;
 }
 
 void History::addHistory(std::string videoName, std::string videoId) {
-    std::string contents, err;
-    picojson::value val;
-    std::ifstream ifs(m_filepath, std::ios::in);
-    std::getline(ifs, contents);
-    ifs.close();
-    std::cout << contents << std::endl;
-    picojson::parse(val, contents.c_str(), contents.c_str() + strlen(contents.c_str()), &err);
-    std::cout << "here " << err << std::endl;
-    if(err.empty()) {
-        auto jsonObj = val.get<picojson::object>();
-        if(bool isExist = jsonObj.count(videoName); !isExist) {
-            jsonObj.emplace(std::make_pair(videoName, picojson::value(videoId)));
-        }
-        std::ofstream ofs(m_filepath, std::ios::out);
-        ofs << picojson::value(jsonObj) << std::endl;
-        std::cout << picojson::value(jsonObj) << std::endl;
-        ofs.close();
-    } else {
-        std::cout << "Exit" << std::endl;
-        std::exit(1);
+    auto jsonObj = m_jsonObj;
+    if(bool isExist = jsonObj.count(videoName); !isExist) {
+        jsonObj.emplace(std::make_pair(videoName, picojson::value(videoId)));
     }
+    std::ofstream ofs(m_filepath, std::ios::out);
+    ofs << picojson::value(jsonObj) << std::endl;
+    std::cout << picojson::value(jsonObj) << std::endl;
+    ofs.close();
+    m_jsonObj = jsonObj;
 }
 
 std::string History::searchKey(std::string key) {
-    std::string contents, err;
-    picojson::value val;
-    std::ifstream ifs(m_filepath, std::ios::in);
-    std::getline(ifs, contents);
-    ifs.close();
-    std::cout << contents << std::endl;
-    picojson::parse(val, contents.c_str(), contents.c_str() + strlen(contents.c_str()), &err);
-    if(err.empty()) {
-        auto jsonObj = val.get<picojson::object>();
-        if(jsonObj.count(key)) {
-            return jsonObj.at(key).to_str();
-        }
-    } else {
-        std::cout << "Exit" << std::endl;
-        std::exit(1);
+    auto jsonObj = m_jsonObj;
+    if(jsonObj.count(key)) {
+        return jsonObj.at(key).to_str();
     }
     return "";
 }
@@ -97,6 +66,20 @@ void History::makeHistoryFile() {
     ofs << "{}" << std::endl;
     ofs.close();
     std::cout << "History File was Created at " << m_filepath << std::endl;
+}
+
+void History::loadHistory() {
+    std::string contents, err;
+    std::ifstream ifs(m_filepath, std::ios::in);
+    std::getline(ifs, contents);
+    picojson::value v;
+    picojson::parse(v, contents.c_str(), contents.c_str()+strlen(contents.c_str()), &err);
+    if(err.empty()) {
+    m_jsonObj = v.get<picojson::object>();
+    } else {
+        std::cout << err << std::endl;
+        std::exit(1);
+    }
 }
 
 

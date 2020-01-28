@@ -10,7 +10,6 @@
 #import "GetHTML.h"
 #include <iostream>
 #include <fstream>
-#include <algorithm>
 #include <string>
 #include <vector>
 #include "curl/curl.h"
@@ -21,21 +20,24 @@
 
 @implementation GetHTML : NSObject
 
-#define write HTMLSource.push_back
+#define WRITE HTMLSource.push_back
+#define LOG of<<__LINE__<<" : "
 
 NSBundle *bundle = [NSBundle mainBundle];
 NSString *settingpath = [bundle pathForResource:@"asset/settings" ofType:@"json"];
 NSString *historyPath = [bundle pathForResource:@"asset/history" ofType:@"json"];
+NSString *logPath = [bundle pathForResource:@"asset/debug" ofType:@"log"];
 Setting setting([settingpath UTF8String]);
 History history([historyPath UTF8String]);
+std::ofstream of([logPath UTF8String], std::ios::trunc);
 
 void writeHTMLdownDisplay(std::string filepath, std::vector<std::string>& vector) {
     int count = 1;
     std::vector<std::string> HTMLSource;
     std::vector<std::string> settings = setting.getSetting();
-    write("<!DOCTYPE HTML>");
-    write("<html>");
-    write("<body>");
+    WRITE("<!DOCTYPE HTML>");
+    WRITE("<html>");
+    WRITE("<body>");
     std::string s = settings[0];
     int setting_count = std::stoi(s);
     if(std::stoi(s) > 4) {
@@ -44,21 +46,21 @@ void writeHTMLdownDisplay(std::string filepath, std::vector<std::string>& vector
         setting_count = std::stoi(s);
     }
     for(auto iterator = vector.begin(); iterator != vector.end(); iterator++) {
-        std::cout << setting_count << std::endl;
         if(count <= setting_count) {
-            write("<iframe width="+settings[2]+"height="+settings[1]+" src=\"https://www.youtube.com/embed/"+*iterator+"\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>");
+            WRITE("<iframe width="+settings[2]+"height="+settings[1]+" src=\"https://www.youtube.com/embed/"+*iterator+"\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>");
             std::cout << count << std::endl;
             count++;
         } else {
             break;
         }
     }
-    write("</body>");
-    write("</html>");
+    WRITE("</body>");
+    WRITE("</html>");
     std::ofstream ofs(filepath, std::ios::out);
     for(auto it = HTMLSource.begin(); it != HTMLSource.end(); it++) {
         std::cout << *it << std::endl;
         ofs << *it << std::endl;
+        LOG << *it << std::endl;;
     }
     ofs.close();
 }
@@ -79,13 +81,16 @@ void writeHTMLdownDisplay(std::string filepath, std::vector<std::string>& vector
         search.replace(pos, from.size(), to);
         pos = search.find(from, pos + to.size());
     }
-    std::string requestURL_first ="https://www.googleapis.com/youtube/v3/search?part=snippet&q="+search+"&key="+apiKey;
+    std::string requestURL_first="https://www.googleapis.com/youtube/v3/search?part=snippet&q="+search+"&key="+apiKey;
+    LOG << requestURL_first << std::endl;
     std::vector<std::string> v = find_videoIDs(doCurl(requestURL_first));
     writeHTMLdownDisplay([htmlPath UTF8String], v);
 }
 
--(void) make_edit_SettingFile {
+-(void) editSetting: (NSString *) first second: (NSString *) second third:(NSString *) third {
+    setting.editSetting([first UTF8String], [second UTF8String], [third UTF8String]);
 }
+
 
 -(void) showSelectedHistory:(NSString *) key {
     NSBundle *bundle = [NSBundle mainBundle];

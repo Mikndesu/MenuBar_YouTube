@@ -36,6 +36,10 @@ class MenuView: NSViewController {
         htmlView.loadHTMLString(htmlStr, baseURL: URL(fileURLWithPath:path!))
     }
     
+    @IBAction func editSetting(_ sender: Any) {
+        window = NSWindow(contentViewController: EditSetting(nibName: "EditSetting", bundle: nil))
+    }
+    
     @IBAction func selectHistory(_ sender: Any) {
         addTimer =  Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(timerCall), userInfo: nil, repeats: true)
         print("s")

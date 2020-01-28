@@ -29,4 +29,8 @@ class EditSetting: NSViewController {
         GetHTML.init().editSetting(max, second: height, third: width)
     }
     
+    @IBAction func onClear(_ sender: Any) {
+        GetHTML.init().editSetting("", second: "", third: "");
+    }
+    
 }

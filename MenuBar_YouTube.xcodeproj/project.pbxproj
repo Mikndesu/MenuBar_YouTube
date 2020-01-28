@@ -22,6 +22,8 @@
 		7B61B50F23C08A28005A2E04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B61B50E23C08A28005A2E04 /* Assets.xcassets */; };
 		7B61B51E23C08A28005A2E04 /* MenuBar_YouTubeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B61B51D23C08A28005A2E04 /* MenuBar_YouTubeTests.swift */; };
 		7B61B52923C08A28005A2E04 /* MenuBar_YouTubeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B61B52823C08A28005A2E04 /* MenuBar_YouTubeUITests.swift */; };
+		7B7E7C6F23DF12EC005292E4 /* EditSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7E7C6D23DF12EC005292E4 /* EditSetting.swift */; };
+		7B7E7C7023DF12EC005292E4 /* EditSetting.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B7E7C6E23DF12EC005292E4 /* EditSetting.xib */; };
 		7B7F13BE23C5BC0400CF1102 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B7F13BD23C5BC0400CF1102 /* WebKit.framework */; };
 		7BBF27C223D1E9BE000EB8BA /* asset in Resources */ = {isa = PBXBuildFile; fileRef = 7BBF27C123D1E9BE000EB8BA /* asset */; };
 		7BBF27D823D577F3000EB8BA /* Images in Resources */ = {isa = PBXBuildFile; fileRef = 7BBF27D723D577F3000EB8BA /* Images */; };
@@ -71,6 +73,8 @@
 		7B61B52423C08A28005A2E04 /* MenuBar_YouTubeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MenuBar_YouTubeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B61B52823C08A28005A2E04 /* MenuBar_YouTubeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar_YouTubeUITests.swift; sourceTree = "<group>"; };
 		7B61B52A23C08A28005A2E04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7B7E7C6D23DF12EC005292E4 /* EditSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSetting.swift; sourceTree = "<group>"; };
+		7B7E7C6E23DF12EC005292E4 /* EditSetting.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditSetting.xib; sourceTree = "<group>"; };
 		7B7F13BD23C5BC0400CF1102 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		7BBF27C123D1E9BE000EB8BA /* asset */ = {isa = PBXFileReference; lastKnownFileType = folder; path = asset; sourceTree = "<group>"; };
 		7BBF27D723D577F3000EB8BA /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = "<group>"; };
@@ -108,11 +112,11 @@
 		7B5D521F23D72DB3007C9C16 /* CPPClasses */ = {
 			isa = PBXGroup;
 			children = (
-				7BD43CED23CA0D21009756D5 /* picojson.h */,
 				7BBF27D923D69336000EB8BA /* History.cpp */,
 				7B42E2A323D99F9300B6BC7D /* Setting.cpp */,
 				7BBF27DA23D69336000EB8BA /* History.hpp */,
 				7B42E2A423D99F9300B6BC7D /* Setting.hpp */,
+				7BD43CED23CA0D21009756D5 /* picojson.h */,
 			);
 			path = CPPClasses;
 			sourceTree = "<group>";
@@ -125,6 +129,8 @@
 				7B0690EE23C61B4100E02C17 /* MenuView.xib */,
 				7B42E2A023D8C77F00B6BC7D /* HistorySelector.xib */,
 				7B612D1423DB1939005FE029 /* SaveStatus.swift */,
+				7B7E7C6D23DF12EC005292E4 /* EditSetting.swift */,
+				7B7E7C6E23DF12EC005292E4 /* EditSetting.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -311,6 +317,7 @@
 				7BBF27D823D577F3000EB8BA /* Images in Resources */,
 				7B0690F623C71AA600E02C17 /* ReadMe.md in Resources */,
 				7B42E2A223D8C77F00B6BC7D /* HistorySelector.xib in Resources */,
+				7B7E7C7023DF12EC005292E4 /* EditSetting.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,6 +342,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B7E7C6F23DF12EC005292E4 /* EditSetting.swift in Sources */,
 				7BBF27DB23D69336000EB8BA /* History.cpp in Sources */,
 				7B61B50D23C08A26005A2E04 /* ViewController.swift in Sources */,
 				7B0690F323C61D0400E02C17 /* GetHTML.mm in Sources */,

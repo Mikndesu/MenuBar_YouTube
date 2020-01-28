@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <string>
 #include <vector>
+#include "picojson.h"
 
 class History {
 public:
@@ -22,8 +23,10 @@ public:
     void editHistory();
 private:
     std::string m_filepath;
+    picojson::object m_jsonObj;
     void makeHistoryFile();
     void checkHistory();
+    void loadHistory();
 };
 
 #endif /* History_hpp */

@@ -1,4 +1,5 @@
 MenuBar_YouTube/asset/APIKey.txt
+MenuBarYouTube/asset/debug.log
 ManuBar_YouTube/picojson.h
 *.xcodeproj/*
 !*.xcodeproj/project.pbxproj

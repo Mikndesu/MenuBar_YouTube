@@ -12,15 +12,18 @@
 #include <stdio.h>
 #include <string>
 #include <vector>
+#include "picojson.h"
 
 class Setting {
 public:
     Setting(std::string);
-    void editSetting(std::string, std::string);
+    void editSetting(std::string, std::string, std::string);
     std::vector<std::string> getSetting();
 private:
     std::string m_filepath;
-    void makeSettingFile();
+    picojson::object m_jsonObj;
+    void makeSettingFile(std::string, std::string, std::string);
+    void loadSetting();
 };
 
 #endif /* Setting_hpp */

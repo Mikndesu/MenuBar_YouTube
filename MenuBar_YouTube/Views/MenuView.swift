@@ -18,6 +18,7 @@ class MenuView: NSViewController {
     var addTimer = Timer()
     
     var count = 0
+    let showFile = NSHomeDirectory()+"/display.html"
     
     let getHTML = GetHTML.init()
     let saveStatus = SaveStatus.shared
@@ -42,30 +43,27 @@ class MenuView: NSViewController {
     
     @IBAction func selectHistory(_ sender: Any) {
         addTimer =  Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(timerCall), userInfo: nil, repeats: true)
-        print("s")
         window = NSWindow(contentViewController: HistorySelector(nibName: "HistorySelector", bundle: nil))
     }
     
     @IBAction func onSearch(_ sender: Any) {
         let searchWord = searchField.stringValue
         if(searchWord != "") {
-            let html_path = Bundle.main.path(forResource: "asset/display", ofType: "html")
             getHTML.searchYouTube(searchWord)
             var htmlStr:String = ""
             do {
-                htmlStr = try String(contentsOfFile: html_path! ,encoding:.utf8)
-                htmlView.loadHTMLString(htmlStr, baseURL: URL(fileURLWithPath:html_path!))
+                htmlStr = try String(contentsOfFile: showFile ,encoding:.utf8)
+                htmlView.loadHTMLString(htmlStr, baseURL: URL(fileURLWithPath:showFile))
             } catch {
             }
         }
     }
     
     func historyShow() {
-        let html_path = Bundle.main.path(forResource: "asset/display", ofType: "html")
         var htmlStr:String = ""
         do {
-            htmlStr = try String(contentsOfFile: html_path! ,encoding:.utf8)
-            htmlView.loadHTMLString(htmlStr, baseURL: URL(fileURLWithPath:html_path!))
+            htmlStr = try String(contentsOfFile: showFile ,encoding:.utf8)
+            htmlView.loadHTMLString(htmlStr, baseURL: URL(fileURLWithPath:showFile))
         } catch {
         }
     }

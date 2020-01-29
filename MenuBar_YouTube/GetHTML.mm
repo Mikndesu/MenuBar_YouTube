@@ -21,15 +21,10 @@
 @implementation GetHTML : NSObject
 
 #define WRITE HTMLSource.push_back
-#define LOG of<<__LINE__<<" : "
 
-NSBundle *bundle = [NSBundle mainBundle];
-NSString *settingpath = [bundle pathForResource:@"asset/settings" ofType:@"json"];
-NSString *historyPath = [bundle pathForResource:@"asset/history" ofType:@"json"];
-NSString *logPath = [bundle pathForResource:@"asset/debug" ofType:@"log"];
-Setting setting([settingpath UTF8String]);
-History history([historyPath UTF8String]);
-std::ofstream of([logPath UTF8String], std::ios::trunc);
+std::string homeDir = [NSHomeDirectory() UTF8String];
+Setting setting(homeDir+"/settings.json");
+History history(homeDir+"/history.json");
 
 void writeHTMLdownDisplay(std::string filepath, std::vector<std::string>& vector) {
     int count = 1;
@@ -48,7 +43,6 @@ void writeHTMLdownDisplay(std::string filepath, std::vector<std::string>& vector
     for(auto iterator = vector.begin(); iterator != vector.end(); iterator++) {
         if(count <= setting_count) {
             WRITE("<iframe width="+settings[2]+"height="+settings[1]+" src=\"https://www.youtube.com/embed/"+*iterator+"\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>");
-            std::cout << count << std::endl;
             count++;
         } else {
             break;
@@ -58,16 +52,13 @@ void writeHTMLdownDisplay(std::string filepath, std::vector<std::string>& vector
     WRITE("</html>");
     std::ofstream ofs(filepath, std::ios::out);
     for(auto it = HTMLSource.begin(); it != HTMLSource.end(); it++) {
-        std::cout << *it << std::endl;
         ofs << *it << std::endl;
-        LOG << *it << std::endl;;
     }
     ofs.close();
 }
 
 -(void) searchYouTube: (NSString *) searchWord {
     NSBundle *bundle = [NSBundle mainBundle];
-    NSString *htmlPath = [bundle pathForResource:@"asset/display" ofType:@"html"];
     NSString *apiPath = [bundle pathForResource:@"asset/APIKey" ofType:@"txt"];
     std::string apiKey;
     std::ifstream ifs([apiPath UTF8String], std::ios::in);
@@ -82,9 +73,8 @@ void writeHTMLdownDisplay(std::string filepath, std::vector<std::string>& vector
         pos = search.find(from, pos + to.size());
     }
     std::string requestURL_first="https://www.googleapis.com/youtube/v3/search?part=snippet&q="+search+"&key="+apiKey;
-    LOG << requestURL_first << std::endl;
     std::vector<std::string> v = find_videoIDs(doCurl(requestURL_first));
-    writeHTMLdownDisplay([htmlPath UTF8String], v);
+    writeHTMLdownDisplay(homeDir+"/display.html", v);
 }
 
 -(void) editSetting: (NSString *) first second: (NSString *) second third:(NSString *) third {
@@ -93,11 +83,9 @@ void writeHTMLdownDisplay(std::string filepath, std::vector<std::string>& vector
 
 
 -(void) showSelectedHistory:(NSString *) key {
-    NSBundle *bundle = [NSBundle mainBundle];
-    NSString *htmlPath = [bundle pathForResource:@"asset/display" ofType:@"html"];
     std::vector<std::string> v;
     v.push_back(history.searchKey([key UTF8String]));
-    writeHTMLdownDisplay([htmlPath UTF8String], v);
+    writeHTMLdownDisplay(homeDir+"/display.html", v);
 }
 
 -(NSMutableArray *) getHistory {
@@ -107,7 +95,6 @@ void writeHTMLdownDisplay(std::string filepath, std::vector<std::string>& vector
         [mutableArray addObject:[NSString stringWithUTF8String:(*it).c_str()]];
         std::cout << *it << std::endl;
     }
-    NSLog(@"array : %@\n", mutableArray);
     return mutableArray;
 }
 
@@ -132,17 +119,13 @@ std::vector<std::string> find_videoIDs(std::string jsonObject) {
             auto object = it->get<picojson::object>();
             if(auto ite = object.find("snippet"); ite != object.end()) {
                 if(auto iter = ite->second.get<picojson::object>().find("title"); iter != ite->second.get<picojson::object>().end()) {
-                    std::cout << iter->second.to_str() << std::endl;
                     v.push_back(iter->second.to_str());
-                    std::cout << "Finish" << std::endl;
                 }
             }
             if(auto ite = object.find("id"); ite != object.end()) {
                 if(auto iter = ite->second.get<picojson::object>().find("videoId"); iter != ite->second.get<picojson::object>().end()) {
-                    std::cout << iter->second.to_str() << std::endl;
                     returnValue.push_back(iter->second.to_str());
                     v.push_back(iter->second.to_str());
-                    std::cout << "Finish" << std::endl;
                 }
             }
             if(v[1] != "") {
@@ -163,20 +146,11 @@ std::string doCurl(std::string word) {
     curl = curl_easy_init();
     std::string chunk;
     
-    if(curl ==  nullptr) {
-        std::cerr << "curl_easy_init() failed" << std::endl;
-    }
-    
     curl_easy_setopt(curl, CURLOPT_URL, word.c_str());
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, callbackWrite);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &chunk);
     ret = curl_easy_perform(curl);
     curl_easy_cleanup(curl);
-    std::cout << curl_easy_strerror(ret) << std::endl;
-    
-    if (ret != CURLE_OK) {
-        std::cerr << "curl_easy_perform() failed." << std::endl;
-    }
     
     return chunk;
 }

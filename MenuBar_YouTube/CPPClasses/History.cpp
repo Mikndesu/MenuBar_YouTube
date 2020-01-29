@@ -16,10 +16,8 @@
 History::History(std::string filepath) {
     m_filepath = filepath;
     if(std::fstream fs(m_filepath, std::ios::in); fs.fail()) {
-        std::cout << "History File was Created" << std::endl;
         makeHistoryFile();
     } else {
-        std::cout << "History File Exists" << std::endl;
         std::string contents;
         if(std::getline(fs, contents); contents.empty()) {
             makeHistoryFile();
@@ -65,7 +63,6 @@ void History::makeHistoryFile() {
     std::ofstream ofs(m_filepath, std::ios::out);
     ofs << "{}" << std::endl;
     ofs.close();
-    std::cout << "History File was Created at " << m_filepath << std::endl;
 }
 
 void History::loadHistory() {

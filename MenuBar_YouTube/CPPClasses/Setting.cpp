@@ -19,7 +19,6 @@ const std::string t_value = "video_height";
 Setting::Setting(std::string filepath) {
     m_filepath = filepath;
     if(std::fstream fs(m_filepath, std::ios::in); fs.fail()) {
-        std::cout << "Setting File was Created" << std::endl;
         makeSettingFile("3", "460", "200");
     } else {
         std::string contents;
@@ -58,7 +57,6 @@ void Setting::makeSettingFile(std::string f, std::string s, std::string t) {
     obj.emplace(std::make_pair(t_value, picojson::value(t)));
     ofs << picojson::value(obj) << std::endl;
     ofs.close();
-    std::cout << "Setting File was Created at " << m_filepath << std::endl;
 }
 
 void Setting::loadSetting() {

@@ -21,6 +21,7 @@ public:
     std::string searchKey(std::string);
     void addHistory(std::string, std::string);
     void editHistory();
+    void clearHistory();
 private:
     std::string m_filepath;
     picojson::object m_jsonObj;

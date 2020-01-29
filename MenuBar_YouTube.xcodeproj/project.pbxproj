@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,8 +11,6 @@
 		7B0690EF23C61B4100E02C17 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0690ED23C61B4100E02C17 /* MenuView.swift */; };
 		7B0690F023C61B4100E02C17 /* MenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B0690EE23C61B4100E02C17 /* MenuView.xib */; };
 		7B0690F323C61D0400E02C17 /* GetHTML.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7B0690F223C61D0400E02C17 /* GetHTML.mm */; };
-		7B0690F623C71AA600E02C17 /* ReadMe.md in Resources */ = {isa = PBXBuildFile; fileRef = 7B0690F523C71AA600E02C17 /* ReadMe.md */; };
-		7B0690F823C71AEA00E02C17 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 7B0690F723C71AEA00E02C17 /* .gitignore */; };
 		7B42E2A123D8C77F00B6BC7D /* HistorySelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E29F23D8C77F00B6BC7D /* HistorySelector.swift */; };
 		7B42E2A223D8C77F00B6BC7D /* HistorySelector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B42E2A023D8C77F00B6BC7D /* HistorySelector.xib */; };
 		7B42E2A523D99F9300B6BC7D /* Setting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E2A323D99F9300B6BC7D /* Setting.cpp */; };
@@ -26,7 +24,6 @@
 		7B7E7C7023DF12EC005292E4 /* EditSetting.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B7E7C6E23DF12EC005292E4 /* EditSetting.xib */; };
 		7B7F13BE23C5BC0400CF1102 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B7F13BD23C5BC0400CF1102 /* WebKit.framework */; };
 		7BBF27C223D1E9BE000EB8BA /* asset in Resources */ = {isa = PBXBuildFile; fileRef = 7BBF27C123D1E9BE000EB8BA /* asset */; };
-		7BBF27D823D577F3000EB8BA /* Images in Resources */ = {isa = PBXBuildFile; fileRef = 7BBF27D723D577F3000EB8BA /* Images */; };
 		7BBF27DB23D69336000EB8BA /* History.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7BBF27D923D69336000EB8BA /* History.cpp */; };
 /* End PBXBuildFile section */
 
@@ -126,10 +123,10 @@
 			children = (
 				7B0690ED23C61B4100E02C17 /* MenuView.swift */,
 				7B42E29F23D8C77F00B6BC7D /* HistorySelector.swift */,
+				7B7E7C6D23DF12EC005292E4 /* EditSetting.swift */,
+				7B612D1423DB1939005FE029 /* SaveStatus.swift */,
 				7B0690EE23C61B4100E02C17 /* MenuView.xib */,
 				7B42E2A023D8C77F00B6BC7D /* HistorySelector.xib */,
-				7B612D1423DB1939005FE029 /* SaveStatus.swift */,
-				7B7E7C6D23DF12EC005292E4 /* EditSetting.swift */,
 				7B7E7C6E23DF12EC005292E4 /* EditSetting.xib */,
 			);
 			path = Views;
@@ -285,7 +282,7 @@
 				};
 			};
 			buildConfigurationList = 7B61B50223C08A26005A2E04 /* Build configuration list for PBXProject "MenuBar_YouTube" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -313,9 +310,6 @@
 				7B61B50F23C08A28005A2E04 /* Assets.xcassets in Resources */,
 				7B0690EA23C5CE2100E02C17 /* Main.storyboard in Resources */,
 				7BBF27C223D1E9BE000EB8BA /* asset in Resources */,
-				7B0690F823C71AEA00E02C17 /* .gitignore in Resources */,
-				7BBF27D823D577F3000EB8BA /* Images in Resources */,
-				7B0690F623C71AA600E02C17 /* ReadMe.md in Resources */,
 				7B42E2A223D8C77F00B6BC7D /* HistorySelector.xib in Resources */,
 				7B7E7C7023DF12EC005292E4 /* EditSetting.xib in Resources */,
 			);

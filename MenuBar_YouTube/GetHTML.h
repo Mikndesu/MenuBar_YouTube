@@ -14,6 +14,7 @@
 
 -(void) searchYouTube: (NSString *) searchWord;
 -(NSMutableArray *) getHistory;
+-(void) clearHistory;
 -(void) showSelectedHistory :(NSString *) key;
 -(void) editSetting: (NSString *) first second: (NSString *) second third:(NSString *) third;
 

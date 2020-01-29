@@ -18,7 +18,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
-        statusItem.title = "YouTube"
+        let path = Bundle.main.path(forResource: "asset/Icon", ofType: "gif")
+//        statusItem.title = "YouTube"
+        statusItem.image = NSImage(contentsOfFile: path!)
         statusItem.action = #selector(AppDelegate.togglePopover(_:))
         showMenu()
     }

@@ -21,12 +21,13 @@
 @implementation GetHTML : NSObject
 
 #define WRITE HTMLSource.push_back
+#define Release
 
 std::string homeDir = [NSHomeDirectory() UTF8String];
 Setting setting(homeDir+"/settings.json");
 History history(homeDir+"/history.json");
 
-void writeHTMLdownDisplay(std::string filepath, std::vector<std::string>& vector) {
+void writeHTMLdownDisplay(std::string filepath, const std::vector<std::string>& vector) {
     int count = 1;
     std::vector<std::string> HTMLSource;
     std::vector<std::string> settings = setting.getSetting();
@@ -57,13 +58,22 @@ void writeHTMLdownDisplay(std::string filepath, std::vector<std::string>& vector
     ofs.close();
 }
 
+-(void) clearHistory {
+    history.clearHistory();
+}
+
 -(void) searchYouTube: (NSString *) searchWord {
+    std::string apiKey;
+#ifdef Debug
     NSBundle *bundle = [NSBundle mainBundle];
     NSString *apiPath = [bundle pathForResource:@"asset/APIKey" ofType:@"txt"];
-    std::string apiKey;
     std::ifstream ifs([apiPath UTF8String], std::ios::in);
     std::getline(ifs, apiKey);
     ifs.close();
+#endif
+#ifdef Release
+    apiKey = "";
+#endif
     std::string search = [searchWord UTF8String];
     std::string from = " ";
     std::string to = "+";

@@ -26,6 +26,10 @@ class HistorySelector: NSViewController {
         }
     }
     
+    @IBAction func onClear(_ sender: Any) {
+        GetHTML.init().clearHistory()
+    }
+    
     @IBAction func OkAction(_ sender: Any) {
         let keyWord = comboBox.stringValue
         if(!keyWord.isEmpty) {

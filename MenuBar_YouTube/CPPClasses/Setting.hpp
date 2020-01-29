@@ -21,6 +21,9 @@ public:
     std::vector<std::string> getSetting();
 private:
     std::string m_filepath;
+    const std::string m_f_value = "max_display_video";
+    const std::string m_s_value = "video_width";
+    const std::string m_t_value = "video_height";
     picojson::object m_jsonObj;
     void makeSettingFile(std::string, std::string, std::string);
     void loadSetting();

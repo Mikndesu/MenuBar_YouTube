@@ -12,10 +12,6 @@
 #include <vector>
 #include "picojson.h"
 
-const std::string f_value = "max_display_video";
-const std::string s_value = "video_width";
-const std::string t_value = "video_height";
-
 Setting::Setting(std::string filepath) {
     m_filepath = filepath;
     if(std::fstream fs(m_filepath, std::ios::in); fs.fail()) {
@@ -52,9 +48,9 @@ std::vector<std::string> Setting::getSetting() {
 void Setting::makeSettingFile(std::string f, std::string s, std::string t) {
     std::ofstream ofs(m_filepath, std::ios::out);
     picojson::object obj;
-    obj.emplace(std::make_pair(f_value, picojson::value(f)));
-    obj.emplace(std::make_pair(s_value, picojson::value(s)));
-    obj.emplace(std::make_pair(t_value, picojson::value(t)));
+    obj.insert(std::make_pair(m_f_value, picojson::value(f)));
+    obj.insert(std::make_pair(m_s_value, picojson::value(s)));
+    obj.insert(std::make_pair(m_t_value, picojson::value(t)));
     ofs << picojson::value(obj) << std::endl;
     ofs.close();
 }

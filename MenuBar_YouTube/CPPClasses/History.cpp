@@ -35,6 +35,12 @@ std::vector<std::string> History::getHistory() {
     return histories;
 }
 
+void History::clearHistory() {
+    std::ofstream ofs(m_filepath, std::ios::out);
+    ofs<<"{}" << std::endl;
+    ofs.close();
+}
+
 void History::addHistory(std::string videoName, std::string videoId) {
     auto jsonObj = m_jsonObj;
     if(bool isExist = jsonObj.count(videoName); !isExist) {

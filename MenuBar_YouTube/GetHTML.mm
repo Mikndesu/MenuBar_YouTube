@@ -21,15 +21,10 @@
 @implementation GetHTML : NSObject
 
 #define WRITE HTMLSource.push_back
-#define LOG of<<__LINE__<<" : "
 
-NSBundle *bundle = [NSBundle mainBundle];
-NSString *settingpath = [bundle pathForResource:@"asset/settings" ofType:@"json"];
-NSString *historyPath = [bundle pathForResource:@"asset/history" ofType:@"json"];
-NSString *logPath = [bundle pathForResource:@"asset/debug" ofType:@"log"];
-Setting setting([settingpath UTF8String]);
-History history([historyPath UTF8String]);
-std::ofstream of([logPath UTF8String], std::ios::trunc);
+std::string homeDir = [NSHomeDirectory() UTF8String];
+Setting setting(homeDir+"/settings.json");
+History history(homeDir+"/history.json");
 
 void writeHTMLdownDisplay(std::string filepath, std::vector<std::string>& vector) {
     int count = 1;
@@ -60,14 +55,12 @@ void writeHTMLdownDisplay(std::string filepath, std::vector<std::string>& vector
     for(auto it = HTMLSource.begin(); it != HTMLSource.end(); it++) {
         std::cout << *it << std::endl;
         ofs << *it << std::endl;
-        LOG << *it << std::endl;;
     }
     ofs.close();
 }
 
 -(void) searchYouTube: (NSString *) searchWord {
     NSBundle *bundle = [NSBundle mainBundle];
-    NSString *htmlPath = [bundle pathForResource:@"asset/display" ofType:@"html"];
     NSString *apiPath = [bundle pathForResource:@"asset/APIKey" ofType:@"txt"];
     std::string apiKey;
     std::ifstream ifs([apiPath UTF8String], std::ios::in);
@@ -82,9 +75,8 @@ void writeHTMLdownDisplay(std::string filepath, std::vector<std::string>& vector
         pos = search.find(from, pos + to.size());
     }
     std::string requestURL_first="https://www.googleapis.com/youtube/v3/search?part=snippet&q="+search+"&key="+apiKey;
-    LOG << requestURL_first << std::endl;
     std::vector<std::string> v = find_videoIDs(doCurl(requestURL_first));
-    writeHTMLdownDisplay([htmlPath UTF8String], v);
+    writeHTMLdownDisplay(homeDir+"/display.html", v);
 }
 
 -(void) editSetting: (NSString *) first second: (NSString *) second third:(NSString *) third {
@@ -93,11 +85,9 @@ void writeHTMLdownDisplay(std::string filepath, std::vector<std::string>& vector
 
 
 -(void) showSelectedHistory:(NSString *) key {
-    NSBundle *bundle = [NSBundle mainBundle];
-    NSString *htmlPath = [bundle pathForResource:@"asset/display" ofType:@"html"];
     std::vector<std::string> v;
     v.push_back(history.searchKey([key UTF8String]));
-    writeHTMLdownDisplay([htmlPath UTF8String], v);
+    writeHTMLdownDisplay(homeDir+"/display.html", v);
 }
 
 -(NSMutableArray *) getHistory {
@@ -157,6 +147,7 @@ std::vector<std::string> find_videoIDs(std::string jsonObject) {
 }
 
 std::string doCurl(std::string word) {
+    std::cout << word << std::endl;
     CURL* curl;
     CURLcode ret;
     
@@ -178,6 +169,7 @@ std::string doCurl(std::string word) {
         std::cerr << "curl_easy_perform() failed." << std::endl;
     }
     
+    std::cout << chunk << std::endl;
     return chunk;
 }
 

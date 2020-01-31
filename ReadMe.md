@@ -33,13 +33,3 @@ settings.json
     "video_height":"180"
 }
 ~~~
-This is going to be able to edit easily by Application Window 
-
-## If You Can't Launch This Application
-If You can't use this application and macOS says "This application is Damaged"
-You should execute This Command 
-~~~
-$ xattr -cr [This Application Path]
------Example-----
-$ xattr -cr /Users/sample/Downloads/MenuBar_YouTube.app
-~~~
